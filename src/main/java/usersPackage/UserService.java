@@ -1,16 +1,20 @@
 package usersPackage;
 
+import DAOpackage.BookDaoXml;
 import DAOpackage.UserDAO;
+import bookPackage.Book;
+import bookPackage.BookService;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
-import static usersPackage.UsersUtils.*;
+import static utils.UsersUtils.askUserType;
+import static utils.Utils.*;
 
 public class UserService {
 
     Scanner scanner = new Scanner(System.in);
+    BookService bookService = new BookService();
 
     public User register() {
         String userName = askEnterString("%s%5s", "Enter username (minimum 4 characters) : ", "");
@@ -20,15 +24,25 @@ public class UserService {
         return new User(userName, password, userType);
     }
 
-    public boolean signIn(UserDAO userDAO) {
+    public User signIn(UserDAO userDAO) {
         String userName = askEnterString("%s%5s", "Enter username (minimum 4 characters) : ", "");
         String password = askEnterString("%s%5s", "Enter password (minimum 4 characters) : ", "");
-        Set<User> list = userDAO.getAll();
-        int foundUsers = userDAO.getAll().stream()
-                .filter(x -> x.getUsername().equals(userName) && x.getPassword() == password.hashCode())
-                .toList()
-                .size();
-        return foundUsers == 1;
+        List<User> usersList = userDAO.getAll().stream()
+                .filter(x -> x.getUsername().equals(userName) && x.getPassword() == password.hashCode()).toList();
+        if (usersList.size() == 1) {
+            return usersList.get(0);
+        } else {
+            System.out.println("WARNING: User doesn't exist");
+            return null;
+        }
+    }
+
+    public void addBook(User user, BookDaoXml bookDaoXml) {
+        if (user != null && user.getUserType().equals(UserType.ADMIN)) {
+            bookDaoXml.create(bookService.createBook());
+        } else {
+            System.out.println("WARNING: Not allowed. You are not admin");
+        }
     }
 
 }
