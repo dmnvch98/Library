@@ -12,7 +12,7 @@ public class BookDaoXml implements DAO<Book> {
     private WriterReader writerReader = new WriterReader();
     private Catalog catalog;
     public BookDaoXml() {
-        catalog = writerReader.readFromXML();
+        catalog = writerReader.readCatalogFromXML();
         books = catalog.getBooks();
     }
 
@@ -21,7 +21,6 @@ public class BookDaoXml implements DAO<Book> {
         return null;
     }
 
-    @Override
     public List<Book> getAll() {
         return books;
     }
