@@ -26,7 +26,7 @@ public class BookDao implements DAO<Book> {
     }
 
     @Override
-    public void create(Book book) {
+    public void add(Book book) {
         books.add(book);
         refreshCatalog();
     }

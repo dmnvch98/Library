@@ -29,7 +29,7 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public void create(User user) {
+    public void add(User user) {
         users.add(user);
         userList.setUsers(users);
         writerReader.saveToXML(userList);

@@ -37,11 +37,12 @@ public class UserService {
         }
     }
 
-    public void addBook(User user, BookDao bookDao) {
-        if (user != null && user.getUserType().equals(UserType.ADMIN)) {
-            bookDao.create(bookService.createBook());
+    public boolean authentication(User user) {
+        if (user != null) {
+            return user.getUserType().equals(UserType.ADMIN);
         } else {
-            System.out.println("WARNING: Not allowed. You are not admin");
+            System.out.println("WARNING: You are not signed in");
+            return false;
         }
     }
 

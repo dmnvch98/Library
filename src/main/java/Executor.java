@@ -30,12 +30,12 @@ public class Executor {
                             "0 - Exit\n" +
                             "Enter number: ", 1, 5);
             switch (enteredNumber) {
-                case 1 -> userDAO.create(userService.register());
+                case 1 -> userDAO.add(userService.register());
                 case 2 -> currentUser = userService.signIn(userDAO);
-                case 3 -> userService.addBook(currentUser, bookDao);
+                case 3 -> bookService.addBook(currentUser, bookDao, userService);
                 case 4 -> bookDao.getAll().forEach(System.out::println);
                 case 5 -> selectBook();
-                case 6 -> bookService.removeBook(currentUser, bookDao);
+                case 6 -> bookService.removeBook(currentUser, bookDao, userService);
                 case 0 -> {
                     return;
                 }

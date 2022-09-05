@@ -1,8 +1,8 @@
 package bookPackage;
 
 import DAOpackage.BookDao;
-import DAOpackage.UserDAO;
 import usersPackage.User;
+import usersPackage.UserService;
 import usersPackage.UserType;
 import utils.Utils;
 
@@ -29,8 +29,16 @@ public class BookService {
         return BookDao.getAll().stream().filter(b -> b.getAuthor().equals(bookAuthor)).toList();
     }
 
-    public void removeBook(User user, BookDao bookDao) {
-        if (user != null && user.getUserType().equals(UserType.ADMIN)) {
+    public void addBook(User user, BookDao bookDao, UserService userService) {
+        if (userService.authentication(user)) {
+            bookDao.add(this.createBook());
+        } else {
+            System.out.println("WARNING: Not allowed. You are not admin");
+        }
+    }
+
+    public void removeBook(User user, BookDao bookDao, UserService userService) {
+        if (userService.authentication(user)) {
             Book bookToRemove = selectBookToRemove(bookDao.getAll());
             bookDao.delete(bookToRemove);
         } else {
