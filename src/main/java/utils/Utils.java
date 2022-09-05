@@ -31,7 +31,7 @@ public final class Utils {
                     return enteredNum;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Введено некорректное значение");
+                System.out.println("WARNING: Not number entered");
             }
         }
     }

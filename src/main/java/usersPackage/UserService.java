@@ -1,6 +1,6 @@
 package usersPackage;
 
-import DAOpackage.BookDaoXml;
+import DAOpackage.BookDao;
 import DAOpackage.UserDAO;
 import bookPackage.Book;
 import bookPackage.BookService;
@@ -37,9 +37,9 @@ public class UserService {
         }
     }
 
-    public void addBook(User user, BookDaoXml bookDaoXml) {
+    public void addBook(User user, BookDao BookDao) {
         if (user != null && user.getUserType().equals(UserType.ADMIN)) {
-            bookDaoXml.create(bookService.createBook());
+            BookDao.create(bookService.createBook());
         } else {
             System.out.println("WARNING: Not allowed. You are not admin");
         }

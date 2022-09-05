@@ -7,11 +7,11 @@ import catalogPackage.Catalog;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDaoXml implements DAO<Book> {
+public class BookDao implements DAO<Book> {
     private List<Book> books = new ArrayList<>();
     private WriterReader writerReader = new WriterReader();
     private Catalog catalog;
-    public BookDaoXml() {
+    public BookDao() {
         catalog = writerReader.readCatalogFromXML();
         books = catalog.getBooks();
     }
