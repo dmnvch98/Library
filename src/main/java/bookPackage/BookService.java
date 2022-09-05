@@ -3,7 +3,6 @@ package bookPackage;
 import DAOpackage.BookDao;
 import usersPackage.User;
 import usersPackage.UserService;
-import usersPackage.UserType;
 import utils.Utils;
 
 import java.util.List;
@@ -11,6 +10,9 @@ import java.util.stream.IntStream;
 
 import static utils.Utils.*;
 
+/**
+ * Класс для обработки книг
+ * **/
 public class BookService {
     private List<String> askBookParams() {
         String author = askEnterString("%s%5s", "Enter author name (minimum 4 characters) : ", "");

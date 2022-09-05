@@ -1,34 +1,34 @@
 package usersPackage;
 
-import DAOpackage.BookDao;
 import DAOpackage.UserDAO;
-import bookPackage.Book;
-import bookPackage.BookService;
 
 import java.util.List;
-import java.util.Scanner;
 
-import static utils.UsersUtils.askUserType;
+import static utils.Utils.askUserType;
 import static utils.Utils.*;
 
+/**
+ * Класс авторизации и аутентификации
+ * **/
 public class UserService {
-
-    Scanner scanner = new Scanner(System.in);
-    BookService bookService = new BookService();
-
-    public User register() {
-        String userName = askEnterString("%s%5s", "Enter username (minimum 4 characters) : ", "");
-        String password = askEnterString("%s%5s", "Enter password (minimum 4 characters) : ", "");
-        UserType userType = askUserType();
-
-        return new User(userName, password, userType);
+    public User register(UserDAO userDAO) {
+        List<String> credentials = askCredentials();
+        List<User> existingUsers = userDAO.getAll();
+        if (existingUsers.stream().filter(x -> x.getUsername().equals(credentials.get(0))).toList()
+                .size() == 0) {
+            return new User(credentials.get(0), credentials.get(1), askUserType());
+        } else {
+            System.out.println("User with this username already exists");
+            return null;
+        }
     }
 
     public User signIn(UserDAO userDAO) {
-        String userName = askEnterString("%s%5s", "Enter username (minimum 4 characters) : ", "");
-        String password = askEnterString("%s%5s", "Enter password (minimum 4 characters) : ", "");
+        List<String> credentials = askCredentials();
         List<User> usersList = userDAO.getAll().stream()
-                .filter(x -> x.getUsername().equals(userName) && x.getPassword() == password.hashCode()).toList();
+                .filter(x -> x.getUsername()
+                        .equals(credentials.get(0)) && x.getPassword() == credentials.get(1).hashCode())
+                .toList();
         if (usersList.size() == 1) {
             return usersList.get(0);
         } else {
@@ -45,5 +45,4 @@ public class UserService {
             return false;
         }
     }
-
 }

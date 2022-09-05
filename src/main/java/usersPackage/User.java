@@ -3,6 +3,9 @@ package usersPackage;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Общий класс для администратор и пользователя
+ * **/
 @XmlRootElement
 public class User {
     private String username;
@@ -10,7 +13,7 @@ public class User {
 
     private UserType userType;
 
-    public User(String username, String password, usersPackage.UserType userType) {
+    public User(String username, String password, UserType userType) {
         this.username = username;
         this.password = password.hashCode();
         this.userType = userType;

@@ -9,22 +9,17 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
+/**
+ * Для чтения и записи файла используется библиотека JAXB. Используемый формат данных - xml.
+ * Для работы класса необходимо имортировать в pom.xml javax.xml.bind и com.sun.xml.bind
+ * **/
 public class WriterReader {
     private static final File booksFile = new File("books.xml");
     private static final File usersFile = new File("users.xml");
-//    public static void main(String[] args) {
-//        Book book = new Book("name", "author", "description");
-//        Book book2 = new Book("name2", "author2", "description2");
-//        Book book3 = new Book("name3", "author3", "description3");
-//        Book book4 = new Book("name4", "author4", "description4");
-//        List<Book> books = new ArrayList<>();
-//        books.add(book);
-//        books.add(book2);
-//        books.add(book3);
-//        books.add(book4);
-//        Catalog catalog = new Catalog(books);
-//        new WriterReader().readFromXML();
-//    }
+
+    /**
+     * @param catalog вспомогательный класс для учета книг
+     * **/
     public void saveToXML(Catalog catalog) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Catalog.class);
@@ -35,6 +30,9 @@ public class WriterReader {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * @param userList вспомогательный класс для учета пользователей
+     * **/
     public void saveToXML(UserList userList) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(UserList.class);

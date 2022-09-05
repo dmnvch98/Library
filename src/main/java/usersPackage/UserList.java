@@ -7,22 +7,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Вспомогательный класс для записи и чтения из xml файла
+ * **/
 @XmlRootElement(name = "users")
 public class UserList {
-    private Set<User> users = new HashSet<>();
+    private List<User> users = new ArrayList<>();
 
-    public UserList(Set<User> users) {
+    public UserList(List<User> users) {
         this.users = users;
     }
 
     public UserList() {
     }
     @XmlElement(name = "user")
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 }

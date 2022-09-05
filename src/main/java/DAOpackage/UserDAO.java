@@ -4,15 +4,15 @@ import XMLpackage.WriterReader;
 import usersPackage.User;
 import usersPackage.UserList;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+/**
+ * Слой для доступа к информации о пользователях
+ * **/
 public class UserDAO implements DAO<User> {
-    Set<User> users = new HashSet<>();
+    List<User> users;
     WriterReader writerReader = new WriterReader();
-    UserList userList = new UserList();
+    UserList userList;
 
     public UserDAO() {
         userList = writerReader.readUsersFromXml();
@@ -24,15 +24,17 @@ public class UserDAO implements DAO<User> {
         return null;
     }
 
-    public Set<User> getAll() {
+    public List<User> getAll() {
         return users;
     }
 
     @Override
     public void add(User user) {
-        users.add(user);
-        userList.setUsers(users);
-        writerReader.saveToXML(userList);
+        if (user != null) {
+            users.add(user);
+            userList.setUsers(users);
+            writerReader.saveToXML(userList);
+        }
     }
 
     @Override

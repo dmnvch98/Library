@@ -1,8 +1,14 @@
 package utils;
 
+import usersPackage.UserType;
+
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Класс для хранения вспомогательных методов не относящихся к какому-либо классу.
+ * **/
 public final class Utils {
 
     private Utils() {
@@ -38,5 +44,16 @@ public final class Utils {
 
     public static void print(Object object) {
         System.out.println(object);
+    }
+
+    public static UserType askUserType() {
+        int enteredNumber = askEnterNumberInRange("Select user type: \n1 - Admin\n2 - User\nEnter number: ", 1, 2);
+        return enteredNumber == 1 ? UserType.ADMIN : UserType.USER;
+    }
+
+    public static List<String> askCredentials() {
+        String userName = askEnterString("%s%5s", "Enter username (minimum 4 characters) : ", "");
+        String password = askEnterString("%s%5s", "Enter password (minimum 4 characters) : ", "");
+        return List.of(userName, password);
     }
 }

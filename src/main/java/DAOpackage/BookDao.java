@@ -2,12 +2,13 @@ package DAOpackage;
 
 import XMLpackage.WriterReader;
 import bookPackage.Book;
-import bookPackage.PaperBook;
 import catalogPackage.Catalog;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Слой для доступа к информации о книгах
+ * **/
 public class BookDao implements DAO<Book> {
     private final List<Book> books;
     private final WriterReader writerReader = new WriterReader();

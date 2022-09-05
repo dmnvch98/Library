@@ -3,6 +3,9 @@ package bookPackage;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Класс родитель для PaperBook и ElectronicBook
+ * **/
 @XmlRootElement
 public abstract class Book {
     private String description;

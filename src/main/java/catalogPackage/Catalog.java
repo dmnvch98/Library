@@ -9,6 +9,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Вспомогательный класс для записи и чтения из xml файла. List<PaperBook> и List<ElectronicBook> напрямую не используются
+ * в классе, однако используются косвенно для хранения именно этих классов, а не класса-родителя (Book). Что бы убедиться
+ * в этом, достаточно запустить программу и вывести на экран все книги.
+ * **/
 @XmlRootElement(name = "catalog")
 public class Catalog {
     private List<Book> books = new ArrayList<>();
@@ -18,11 +23,6 @@ public class Catalog {
     public Catalog(List<Book> catalog) {
         this.books = catalog;
     }
-
-//    public Catalog(List<Book> books, List<PaperBook> paperBooks) {
-//        this.books = books;
-//        this.paperBooks = paperBooks;
-//    }
 
     public Catalog() {
     }

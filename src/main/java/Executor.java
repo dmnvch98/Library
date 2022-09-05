@@ -5,6 +5,9 @@ import usersPackage.User;
 import usersPackage.UserService;
 import utils.Utils;
 
+/**
+ * Входная точка в программу
+ * **/
 public class Executor {
     static BookDao bookDao = new BookDao();
     static UserDAO userDAO = new UserDAO();
@@ -30,7 +33,7 @@ public class Executor {
                             "0 - Exit\n" +
                             "Enter number: ", 1, 5);
             switch (enteredNumber) {
-                case 1 -> userDAO.add(userService.register());
+                case 1 -> userDAO.add(userService.register(userDAO));
                 case 2 -> currentUser = userService.signIn(userDAO);
                 case 3 -> selectTypeOfBook();
                 case 4 -> bookDao.getAll().forEach(System.out::println);
