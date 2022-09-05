@@ -26,14 +26,16 @@ public class Executor {
                             "3 - Add Book\n" +
                             "4 - Get all books\n" +
                             "5 - Get book by value\n" +
+                            "6 - Remove book\n" +
                             "0 - Exit\n" +
                             "Enter number: ", 1, 5);
             switch (enteredNumber) {
                 case 1 -> userDAO.create(userService.register());
                 case 2 -> currentUser = userService.signIn(userDAO);
                 case 3 -> userService.addBook(currentUser, bookDao);
-                case 4 -> System.out.println(bookDao.getAll());
+                case 4 -> bookDao.getAll().forEach(System.out::println);
                 case 5 -> selectBook();
+                case 6 -> bookService.removeBook(currentUser, bookDao);
                 case 0 -> {
                     return;
                 }

@@ -44,7 +44,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "\nBook{" +
+        return "Book{" +
                 "\nname='" + name + '\'' +
                 "\nauthor='" + author + '\'' +
                 "\ndescription='" + description + '\'' +

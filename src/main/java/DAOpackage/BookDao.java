@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDao implements DAO<Book> {
-    private List<Book> books = new ArrayList<>();
-    private WriterReader writerReader = new WriterReader();
-    private Catalog catalog;
+    private final List<Book> books;
+    private final WriterReader writerReader = new WriterReader();
+    private final Catalog catalog;
     public BookDao() {
         catalog = writerReader.readCatalogFromXML();
         books = catalog.getBooks();
@@ -28,17 +28,22 @@ public class BookDao implements DAO<Book> {
     @Override
     public void create(Book book) {
         books.add(book);
-        catalog.setBooks(books);
-        writerReader.saveToXML(catalog);
+        refreshCatalog();
     }
 
     @Override
-    public void delete(Book o) {
-
+    public void delete(Book book) {
+        books.remove(book);
+        refreshCatalog();
     }
 
     @Override
     public void update(Book o, List<String> params) {
 
+    }
+
+    public void refreshCatalog() {
+        catalog.setBooks(books);
+        writerReader.saveToXML(catalog);
     }
 }

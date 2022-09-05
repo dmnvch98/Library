@@ -37,9 +37,9 @@ public class UserService {
         }
     }
 
-    public void addBook(User user, BookDao BookDao) {
+    public void addBook(User user, BookDao bookDao) {
         if (user != null && user.getUserType().equals(UserType.ADMIN)) {
-            BookDao.create(bookService.createBook());
+            bookDao.create(bookService.createBook());
         } else {
             System.out.println("WARNING: Not allowed. You are not admin");
         }
