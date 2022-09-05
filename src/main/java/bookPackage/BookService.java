@@ -12,11 +12,31 @@ import java.util.stream.IntStream;
 import static utils.Utils.*;
 
 public class BookService {
-    public Book createBook() {
+    private List<String> askBookParams() {
         String author = askEnterString("%s%5s", "Enter author name (minimum 4 characters) : ", "");
         String name = askEnterString("%s%5s", "Enter book name (minimum 4 characters) : ", "");
         String description = askEnterString("%s%5s", "Enter book description (minimum 4 characters) : ", "");
-        return new Book(name, author, description);
+        return List.of(name, author, description);
+    }
+
+    public PaperBook createPaperBook(User user, UserService userService) {
+        if (userService.authentication(user)) {
+            List<String> bookParams = askBookParams();
+            return new PaperBook(bookParams.get(0), bookParams.get(1), bookParams.get(2));
+        } else {
+            System.out.println("WARNING: Not allowed. You are not admin");
+            return null;
+        }
+    }
+
+    public ElectronicBook createElectronicBook(User user, UserService userService) {
+        if (userService.authentication(user)) {
+            List<String> bookParams = askBookParams();
+            return new ElectronicBook(bookParams.get(0), bookParams.get(1), bookParams.get(2));
+        } else {
+            System.out.println("WARNING: Not allowed. You are not admin");
+            return null;
+        }
     }
 
     public List<Book> getBookByName(BookDao BookDao) {
@@ -29,11 +49,9 @@ public class BookService {
         return BookDao.getAll().stream().filter(b -> b.getAuthor().equals(bookAuthor)).toList();
     }
 
-    public void addBook(User user, BookDao bookDao, UserService userService) {
-        if (userService.authentication(user)) {
-            bookDao.add(this.createBook());
-        } else {
-            System.out.println("WARNING: Not allowed. You are not admin");
+    public void addBook(BookDao bookDao, Book book) {
+        if (book != null) {
+            bookDao.add(book);
         }
     }
 

@@ -35,4 +35,8 @@ public final class Utils {
             }
         }
     }
+
+    public static void print(Object object) {
+        System.out.println(object);
+    }
 }

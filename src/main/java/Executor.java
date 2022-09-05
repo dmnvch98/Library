@@ -32,7 +32,7 @@ public class Executor {
             switch (enteredNumber) {
                 case 1 -> userDAO.add(userService.register());
                 case 2 -> currentUser = userService.signIn(userDAO);
-                case 3 -> bookService.addBook(currentUser, bookDao, userService);
+                case 3 -> selectTypeOfBook();
                 case 4 -> bookDao.getAll().forEach(System.out::println);
                 case 5 -> selectBook();
                 case 6 -> bookService.removeBook(currentUser, bookDao, userService);
@@ -43,7 +43,7 @@ public class Executor {
         }
     }
 
-    public void selectBook() {
+    private void selectBook() {
         while (true) {
             int enteredNumber = Utils.askEnterNumberInRange(
                     "Select by what value to search book:\n" +
@@ -60,6 +60,24 @@ public class Executor {
             }
         }
     }
+
+    private void selectTypeOfBook() {
+        while (true) {
+            int enteredNumber = Utils.askEnterNumberInRange(
+                    "Select book type:\n" +
+                            "1 - Paper\n" +
+                            "2 - Electronic\n" +
+                            "0 - Exit\n" +
+                            "Enter number: ", 0, 1
+            );
+            switch (enteredNumber) {
+                case 1 -> bookService.addBook(bookDao, bookService.createPaperBook(currentUser, userService));
+                case 2 -> bookService.addBook(bookDao, bookService.createElectronicBook(currentUser, userService));
+                case 0 -> {return;}
+            }
+        }
+    }
+
 
     public static String getCurrentUser() {
         if (currentUser != null) {

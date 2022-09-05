@@ -2,6 +2,7 @@ package DAOpackage;
 
 import XMLpackage.WriterReader;
 import bookPackage.Book;
+import bookPackage.PaperBook;
 import catalogPackage.Catalog;
 
 import java.util.ArrayList;
